@@ -2,7 +2,7 @@
 #Include "Rwmake.CH"					
 
 /*/{Protheus.doc} PCOIMP
-//TODO PROGRAMA PARA IMPORTA«√O DA PLANILHA OR«AMENT¡RIA.
+//TODO PROGRAMA PARA IMPORTA√á√ÉO DA PLANILHA OR√áAMENT√ÅRIA.
 @author alex.bender
 @since 27/08/2019
 @version 1.0
@@ -10,23 +10,23 @@
 /*/
 User Function PCOIMP()
 	Local   aDados	:= {}
-	Private aHead	:= {" ","OrÁamento","Vers„o","Msg Processamento"}
+	Private aHead	:= {" ","Or√ßamento","Vers√£o","Msg Processamento"}
 	Private aTam	:= {10,40,60,100}
 	Private aReg	:= {{.F.," "," "," "}}
-	Private oA		:= LoadBitmap(GetResources(),'br_verde') 
-	Private oB		:= LoadBitmap(GetResources(),'br_vermelho')
+	Private oA	:= LoadBitmap(GetResources(),'br_verde') 
+	Private oB	:= LoadBitmap(GetResources(),'br_vermelho')
 
 	Private cLocalFile	:= Space(1)
 	Private nTipo		:= 3     
 
 	SetPrvt("oDlg1","oGrp1","oRMenu1","oGrp3","oBtn1","oGet1","oBtn2","oGrp2","oBrw1","oGrp4","oBtn5","oBtn6","oBtn3","oBtn4")
 
-	oDlg1	:= MSDialog():New( 090,229,590,1090,"ImportaÁ„o de OrÁamento",,,.F.,,,,,,.T.,,,.T. )
+	oDlg1	:= MSDialog():New( 090,229,590,1090,"Importa√ß√£o de Or√ßamento",,,.F.,,,,,,.T.,,,.T. )
 	oGrp1	:= TGroup():New( 000,002,040,428,"",oDlg1,CLR_BLACK,CLR_WHITE,.T.,.F. )
-	oGrp3	:= TGroup():New( 006,005,036,424,"LocalizaÁ„o do Arquivo ",oGrp1,CLR_BLACK,CLR_WHITE,.T.,.F. )
+	oGrp3	:= TGroup():New( 006,005,036,424,"Localiza√ß√£o do Arquivo ",oGrp1,CLR_BLACK,CLR_WHITE,.T.,.F. )
 	oBtn1	:= TButton():New( 017,009,"Selecione o &Arquivo",oGrp3,{||GetCaminho()},060,012,,,,.T.,,"",,,,.F. )
 	oGet1	:= TGet():New( 017,070,{|u| If(PCount()>0,cLocalFile:=u,cLocalFile)},oGrp3,265,010,'',,CLR_BLACK,CLR_WHITE,,,,.T.,"",,,.F.,.F.,,.T.,.F.,"","cLocalFile",,)
-	oBtn2	:= TButton():New( 017,343,"&Iniciar ImportaÁ„o",oGrp3,{||Processa({||SelArquivo(cLocalFile)},"Realizando ImportaÁ„o de Dados")},070,012,,,,.T.,,"",,,,.F. )
+	oBtn2	:= TButton():New( 017,343,"&Iniciar Importa√ß√£o",oGrp3,{||Processa({||SelArquivo(cLocalFile)},"Realizando Importa√ß√£o de Dados")},070,012,,,,.T.,,"",,,,.F. )
 	oGrp2	:= TGroup():New( 040,002,232,428,"Dados do Processamento do Arquivo",oDlg1,CLR_BLACK,CLR_WHITE,.T.,.F. )
 
 	oBrw1	:= TCBrowse():New(048,006,420,180,,aHead,aTam,oGrp2,,,,,{||},,,,,,,.F.,,.T.,,.F.,,, )
@@ -45,7 +45,7 @@ User Function PCOIMP()
 Return .T.
 
 /*/{Protheus.doc} GRAVPCO
-//TODO FUN«√O GRAVA PLANILHA OR«AMENT¡RIA.
+//TODO FUN√á√ÉO GRAVA PLANILHA OR√áAMENT√ÅRIA.
 @author alex.bender
 @since 27/08/2019
 @version 1.0
@@ -54,9 +54,9 @@ Return .T.
 /*/
 Static Function GRAVPCO(aDados)
 	Local aParam		:= {}
-	Local aErro			:= {}
+	Local aErro		:= {}
 	Local nOperac		:= 3
-	Local cErro			:= ""
+	Local cErro		:= ""
 	Local cMsgLog		:= ""
 	Local nQtdProx		:= 0
 	Local nQtdeSuc		:= 0
@@ -73,7 +73,7 @@ Static Function GRAVPCO(aDados)
 		aReg := {}
 		ProcRegua(Len(aDados)) 
 		For i:=1 To Len(aDados)
-			IncProc("Realizando importaÁ„o... OrÁamento: "+aDados[i,3]+Chr(13)+Chr(10)+"Sucesso:"+cValToChar(nQtdeSuc)+" Falha:"+cValToChar(nQtdeFal)   )
+			IncProc("Realizando importa√ß√£o... Or√ßamento: "+aDados[i,3]+Chr(13)+Chr(10)+"Sucesso:"+cValToChar(nQtdeSuc)+" Falha:"+cValToChar(nQtdeFal)   )
 			cMsgVal := ValDados(aDados[i])
 
 			If Empty(cMsgVal)
@@ -115,9 +115,9 @@ Static Function GRAVPCO(aDados)
 
 		If !Empty(cMsgErro)
 			MemoWrite("C:\Temp\LogImpAtivo.txt",cMsgLog)
-			MsgAlert('Houve erro no processamento das informaÁıes. Um ou mais itens, n„o foram importados (Falhas:'+cValToChar(nQtdeFal)+' Sucesso:'+cValToChar(nQtdeSuc)+'). Verifique o Log gerado em "C:\Temp\" com o nome LogImpAtivo.txt.',"Verifique")
+			MsgAlert('Houve erro no processamento das informa√ß√µes. Um ou mais itens, n√£o foram importados (Falhas:'+cValToChar(nQtdeFal)+' Sucesso:'+cValToChar(nQtdeSuc)+'). Verifique o Log gerado em "C:\Temp\" com o nome LogImpAtivo.txt.',"Verifique")
 		Else
-			MsgInfo("ImportaÁ„o realizada com sucesso. Foram importados ("+cValToChar(nQtdeSuc)+") Registro.","Sucesso")
+			MsgInfo("Importa√ß√£o realizada com sucesso. Foram importados ("+cValToChar(nQtdeSuc)+") Registro.","Sucesso")
 		EndIf
 		SetGrid()
 	EndIf
@@ -134,17 +134,17 @@ Return .T.
 Static Function GravaAK1(aDados)
 	Local aParam		:= {}
 	Local aGrvAK1		:= {}
-	Local aErro			:= {}
+	Local aErro		:= {}
 	Local nOperac		:= 3
-	Local cErro			:= ""
+	Local cErro		:= ""
 	Local cMsgLog		:= ""
 	Local cVersao		:= "001"
 	Local cMostraErro	:= ""
-	Local aRet			:= {}
+	Local aRet		:= {}
 	Local cMsgLog		:= ""
 
-	Private lMsErroAuto		:= .F.
-	Private lMsHelpAuto		:= .T.
+	Private lMsErroAuto	:= .F.
+	Private lMsHelpAuto	:= .T.
 
 	//VALIDA AK1 EXISTE - AK1_FILIAL+AK1_CODIGO+AK1_VERSAO
 	DbSelectArea("AK1")
@@ -152,19 +152,19 @@ Static Function GravaAK1(aDados)
 	If !DbSeek(xFilial("AK1")+PadR(aDados[03],TamSX3("AK1_CODIGO")[1],' ')+cVersao )
 
 		aGrvAK1 := {}
-		Aadd( aGrvAK1, {"AK1_CODIGO", aDados[03]		, NIL})
-		Aadd( aGrvAK1, {"AK1_DESCRI", aDados[04]		, NIL})
-		Aadd( aGrvAK1, {"AK1_VERSAO", cVersao			, NIL})
-		Aadd( aGrvAK1, {"AK1_NMAX"  , aDados[05]		, NIL})
-		Aadd( aGrvAK1, {"AK1_TPPERI", aDados[06]		, NIL})
+		Aadd( aGrvAK1, {"AK1_CODIGO", aDados[03]	, NIL})
+		Aadd( aGrvAK1, {"AK1_DESCRI", aDados[04]	, NIL})
+		Aadd( aGrvAK1, {"AK1_VERSAO", cVersao		, NIL})
+		Aadd( aGrvAK1, {"AK1_NMAX"  , aDados[05]	, NIL})
+		Aadd( aGrvAK1, {"AK1_TPPERI", aDados[06]	, NIL})
 		Aadd( aGrvAK1, {"AK1_INIPER", CtoD(aDados[07])	, NIL})
 		Aadd( aGrvAK1, {"AK1_FIMPER", CtoD(aDados[08])	, NIL})
-		Aadd( aGrvAK1, {"AK1_VERREV", aDados[09]		, NIL})
+		Aadd( aGrvAK1, {"AK1_VERREV", aDados[09]	, NIL})
 
 		MsExecAuto( { |u,v,w,x,y,z| PCOA100(u,v,w,x,y,z)} ,3,,,,aGrvAK1,)
 		If lMsErroAuto 
 			cMostraErro := FwCutOff(MostraErro("c:\temp","erro"),.T.)
-			cMsgLog += "Planilha OrÁament·ria N∫: "+ aDados[03]+ " Vers„o: "+cVersao+" Erro: "+ cMostraErro + Chr(13)+Chr(10)	
+			cMsgLog += "Planilha Or√ßament√°ria N¬∫: "+ aDados[03]+ " Vers√£o: "+cVersao+" Erro: "+ cMostraErro + Chr(13)+Chr(10)	
 		Endif
 	Endif
 
@@ -184,14 +184,14 @@ Return aRet
 @type function
 /*/
 Static Function GravaAK3(aDados)
-	Local cCod			:= aDados[03]
+	Local cCod		:= aDados[03]
 	Local cVersao		:= "001"
-	Local aRet			:= {{.T., ""}}
+	Local aRet		:= {{.T., ""}}
 	Local aContas		:= {} 
 	Local cTipoK5		:= ""
 	Local cDescK5		:= ""
 	Local cCodSupK5		:= ""
-	Local k				:= 1
+	Local k			:= 1
 	
 	If Len(aDados) > 0
 		aContas := RetContas(aDados[11])
@@ -203,7 +203,7 @@ Static Function GravaAK3(aDados)
 				AK3->AK3_FILIAL		:= xFilial("AK3")
 				AK3->AK3_ORCAME		:= aDados[03]
 				AK3->AK3_VERSAO		:= cVersao
-				AK3->AK3_CO			:= aDados[03]
+				AK3->AK3_CO		:= aDados[03]
 				AK3->AK3_PAI		:= ' '
 				AK3->AK3_TIPO		:= ' '
 				AK3->AK3_DESCRI		:= aDados[04]
@@ -227,7 +227,7 @@ Static Function GravaAK3(aDados)
 					AK3->AK3_FILIAL		:= xFilial("AK3")
 					AK3->AK3_ORCAME		:= aDados[03]
 					AK3->AK3_VERSAO		:= cVersao
-					AK3->AK3_CO			:= aContas[k,1]
+					AK3->AK3_CO		:= aContas[k,1]
 					AK3->AK3_PAI		:= IIF(Empty(aContas[k,2]),aDados[03],aContas[k,2])
 					AK3->AK3_TIPO		:= cTipoK5
 					AK3->AK3_DESCRI		:= cDescK5
@@ -247,9 +247,9 @@ Return aRet
 @type function
 /*/
 Static Function GravaAK2(aDados)
-	Local x			:= 0
+	Local x		:= 0
 	Local cVersao	:= "001"
-	Local aRet		:= {{.T., ""}}
+	Local aRet	:= {{.T., ""}}
 
 	If Len(aDados) > 0
 		For x := 0 To 11 
@@ -263,7 +263,7 @@ Static Function GravaAK2(aDados)
 					AK2->AK2_ORCAME := aDados[03]
 					AK2->AK2_VERSAO := cVersao
 					AK2->AK2_CO 	:= aDados[11]
-					AK2->AK2_PERIOD := MonthSum(CtoD(aDados[7]),x) //PRIMEIRA DATA DE CADA M S
+					AK2->AK2_PERIOD := MonthSum(CtoD(aDados[7]),x) //PRIMEIRA DATA DE CADA M√äS
 					AK2->AK2_CC 	:= aDados[10]
 					AK2->AK2_ITCTB  := aDados[12]
 					AK2->AK2_CLVLR  := aDados[13]
@@ -279,7 +279,7 @@ Static Function GravaAK2(aDados)
 Return aRet
 
 /*/{Protheus.doc} ValDados
-//TODO FUN«√O PARA VALIDA«√O DOS DADOS.
+//TODO FUN√á√ÉO PARA VALIDA√á√ÉO DOS DADOS.
 @author alex.bender
 @since 27/08/2019
 @version 1.0
@@ -288,56 +288,56 @@ Return aRet
 @type function
 /*/
 Static Function ValDados(aDados)
-	Local aRet		:= {}
+	Local aRet	:= {}
 	Local cMsgVal	:= ""
 
-	//VALIDA«√O CENTRO DE CUSTO - TABELA CTT
+	//VALIDA√á√ÉO CENTRO DE CUSTO - TABELA CTT
 	If !Empty(alltrim(aDados[10]))
 		DbSelectArea("CTT")
 		DbSetOrder(1)
 		If !DbSeek(xFilial("CTT")+PadR(aDados[10],TamSX3("CTT_CUSTO")[1],' ') )
-			cMsgVal += "Centro de Custo CÛd: " + AllTrim(aDados[10]) + " n„o Cadastrado; "
+			cMsgVal += "Centro de Custo C√≥d: " + AllTrim(aDados[10]) + " n√£o Cadastrado; "
 		EndIf
 	EndIf
 
-	//VALIDA«√O CONTA OR«AMENT¡RIA - TABELA AK5
+	//VALIDA√á√ÉO CONTA OR√áAMENT√ÅRIA - TABELA AK5
 	If !Empty(AllTrim(aDados[11]))
 		DbSelectArea("AK5")
 		DbSetOrder(1)
 		If !DbSeek(xFilial("AK5")+PadR(aDados[11],TamSX3("AK5_CODIGO")[1],' ') )
-			cMsgVal += "Conta OrÁament·ria CÛd: " + AllTrim(aDados[11]) + " n„o Cadastrado; "
+			cMsgVal += "Conta Or√ßament√°ria C√≥d: " + AllTrim(aDados[11]) + " n√£o Cadastrado; "
 		EndIf
 	Else
-		cMsgVal += "Conta orÁament·ria È ObrigatÛrio no arquivo; "
+		cMsgVal += "Conta or√ßament√°ria √© Obrigat√≥rio no arquivo; "
 	EndIf
 
-	//VALIDA«√O ITEM CONTABIL - TABELA CTD
+	//VALIDA√á√ÉO ITEM CONTABIL - TABELA CTD
 	If !Empty(AllTrim(aDados[12]))
 		DbSelectArea("CTD")
 		DbSetOrder(1)
 		If !DbSeek(xFilial("CTD")+PadR(aDados[12],TamSX3("CTD_ITEM")[1],' ') )
-			cMsgVal += "Item Cont·bil CÛd: " + AllTrim(aDados[12]) + " n„o Cadastrado; "
+			cMsgVal += "Item Cont√°bil C√≥d: " + AllTrim(aDados[12]) + " n√£o Cadastrado; "
 		EndIf
 	EndIf
 
-	//VALIDA«√O CLASSE VALOR - TABELA CTH
+	//VALIDA√á√ÉO CLASSE VALOR - TABELA CTH
 	If !Empty(AllTrim(aDados[13]))
 		DbSelectArea("CTH")
 		DbSetOrder(1)
 		If !DbSeek(xFilial("CTH")+PadR(aDados[13],TamSX3("CTD_ITEM")[1],' ') )
-			cMsgVal += "Classe de Valor CÛd: " + AllTrim(aDados[13]) + " n„o Cadastrado; "
+			cMsgVal += "Classe de Valor C√≥d: " + AllTrim(aDados[13]) + " n√£o Cadastrado; "
 		EndIf
 	EndIf
 
-	//VALIDA«√O CLASSE OR«AMENT¡RIA - TABELA AK6
+	//VALIDA√á√ÉO CLASSE OR√áAMENT√ÅRIA - TABELA AK6
 	If !Empty(AllTrim(aDados[14]))
 		DbSelectArea("AK6")
 		DbSetOrder(1)
 		If !DbSeek(xFilial("AK6")+PadR(aDados[14],TamSX3("AK6_CODIGO")[1],' ') )
-			cMsgVal += "Classe OrÁamen·ria CÛd: " + AllTrim(aDados[14]) + " n„o Cadastrado; "
+			cMsgVal += "Classe Or√ßamen√°ria C√≥d: " + AllTrim(aDados[14]) + " n√£o Cadastrado; "
 		EndIf
 	Else
-		cMsgVal += "Classe OrÁament·ria È ObrigatÛrio no arquivo; "
+		cMsgVal += "Classe Or√ßament√°ria √© Obrigat√≥rio no arquivo; "
 	EndIf
 
 	If !Empty(AllTrim(cMsgVal))
@@ -361,7 +361,7 @@ Static Function GetCaminho()
 	Local cCadastro 	:= "Ler arquivo texto"
 	Local cTitulo1  	:= "Selecione o arquivo"
 	Local cExtens   	:= "Arquivo CSV | *.csv|Arquivo TXT| *.txt"
-	Private cMainPath  := ""
+	Private cMainPath  	:= ""
 
 	cLocalFile := cGetFile(cExtens,cTitulo1,,cMainPath,.T.)
 	oGet1:Refresh()
@@ -382,11 +382,11 @@ Static Function SelArquivo(cCaminho)
 	Local cBuffer   	:= ""
 	Local cFileOpen 	:= ""
 	Local aLinha		:= {}
-	Private cMainPath  := ""
+	Private cMainPath  	:= ""
 	Private aDados		:= {}
 
 	If !File(cCaminho)
-		MsgAlert("Arquivo texto: "+cCaminho+" n„o localizado",cCadastro)
+		MsgAlert("Arquivo texto: "+cCaminho+" n√£o localizado",cCadastro)
 		Return aDados
 	Endif
 
@@ -409,13 +409,13 @@ Static Function SelArquivo(cCaminho)
 	FT_FUSE()
 
 	If Len(aDados) > 0
-		Processa({||GRAVPCO(aDados)},"Importando Planilha OrÁament·ria")
+		Processa({||GRAVPCO(aDados)},"Importando Planilha Or√ßament√°ria")
 	EndIf
 Return .T.
 
 
 /*/{Protheus.doc} SetGrid
-//TODO FUNCAO PARA ATUALIZAR OS DADOS DA GRID CONTENDO AS INFORMACAOES DA IMPORTA«√O.
+//TODO FUNCAO PARA ATUALIZAR OS DADOS DA GRID CONTENDO AS INFORMACAOES DA IMPORTA√á√ÉO.
 @author alex.bender
 @since 27/08/2019
 @version 1.0
@@ -453,7 +453,7 @@ Static Function QualPai(cConta)
 Return cContaPai
 
 /*/{Protheus.doc} RetContas
-//TODO Retornas as contas Pai e Filha com cada NÌvel
+//TODO Retornas as contas Pai e Filha com cada N√≠vel
 @author alex.bender
 @since 28/08/2019
 @version 1.0
@@ -465,7 +465,7 @@ Static Function RetContas(cContaIN)
 	Local aContas	:= {}
 	Local cConta	:= cContaIN
 	Local cContaPai	:= cContaIN 
-	Local cContaOld:= cContaIN
+	Local cContaOld	:= cContaIN
 	Local cNivel    := "005"
 	
 	While !Empty(cContaPai)
